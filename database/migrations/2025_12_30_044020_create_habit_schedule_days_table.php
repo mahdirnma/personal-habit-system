@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('habit_schedule_days', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('habit_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('weekday');
             $table->timestamps();
         });
     }

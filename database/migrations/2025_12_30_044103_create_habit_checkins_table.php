@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('habit_checkins', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('habit_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->date('for_date');
+            $table->string('status');
+            $table->time('checked_in_at');
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
