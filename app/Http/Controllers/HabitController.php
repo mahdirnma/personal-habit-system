@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateHabitRequest;
 use App\Models\HabitCategory;
 use App\Models\HabitScheduleDay;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HabitController extends Controller
@@ -53,6 +54,26 @@ class HabitController extends Controller
         return redirect()->route('habits.create');
     }
 
+    public function statusForm(Habit $habit)
+    {
+        return view('user.habit.checkin.checkin', compact('habit'));
+    }
+
+    public function status(Habit $habit,Request $request)
+    {
+        $user=Auth::id();
+        $checkin=$habit->checkins()->create([
+            'user_id' => $user,
+            'for_date' => Carbon::now()->format('Y-m-d'),
+            'status' => $request->status,
+            'checked_in_at' => Carbon::now()->format('H:i:s'),
+            'notes' => $request->note
+        ]);
+        if ($checkin) {
+            return redirect()->route('habits.index');
+        }
+        return redirect()->route('habits.create');
+    }
     /**
      * Display the specified resource.
      */

@@ -13,7 +13,8 @@ class HabitCheckinController extends Controller
      */
     public function index()
     {
-        //
+        $habitCheckins = HabitCheckin::query()->paginate(2);
+        return view('user.habit.checkins', compact('habitCheckins'));
     }
 
     /**

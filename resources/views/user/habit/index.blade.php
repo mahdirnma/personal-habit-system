@@ -24,6 +24,7 @@
                 <table class="w-full min-h-full border border-gray-400">
                     <thead>
                     <tr class="h-12 border border-gray-400 border-b-2 border-b-gray-400">
+                        <td class="text-center">status</td>
                         <td class="text-center">category</td>
                         <td class="text-center">frequency</td>
                         <td class="text-center">remind at</td>
@@ -36,6 +37,12 @@
                     <tbody>
                     @foreach($habits as $habit)
                         <tr class="h-12 border border-gray-400 border-b-2 border-b-gray-400">
+                            <td class="text-center">
+                                <form action="{{route('habit.status.form',$habit->habit)}}" method="get">
+                                    @csrf
+                                    <button type="submit" class="text-cyan-600 cursor-pointer">change status</button>
+                                </form>
+                            </td>
                             <td class="text-center">{{$habit->habit->category->name}}</td>
                             <td class="text-center">{{$habit->habit->frequency}}</td>
                             <td class="text-center">{{$habit->habit->remind_at}}</td>

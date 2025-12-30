@@ -12,7 +12,7 @@ class HabitCheckin extends Model
         'for_date',
         'status',
         'checked_in_at',
-        'note'
+        'notes'
     ];
     public function habit(){
         return $this->belongsTo(Habit::class);
