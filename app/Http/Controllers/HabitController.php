@@ -19,7 +19,23 @@ class HabitController extends Controller
     public function index()
     {
         $today = Carbon::now()->dayOfWeek;
-        $habits = HabitScheduleDay::where('weekday', $today)->paginate(2);
+        $habitsWeekday = HabitScheduleDay::where('weekday', $today)->get();
+        $habits=[];
+        foreach ($habitsWeekday as $habit) {
+            if ($habit->habit->checkins->isNotEmpty() && $habit->habit->due_at>=date('Y-m-d')) {
+                $status=true;
+                foreach ($habit->habit->checkins as $checkin) {
+                    if ($checkin->for_date==date('Y-m-d')) {
+                        $status=false;
+                    }
+                }
+                if ($status) {
+                    array_push($habits, $habit->habit);
+                }
+            }elseif ($habit->habit->checkins->isEmpty() && $habit->habit->due_at>=date('Y-m-d')){
+                array_push($habits, $habit->habit);
+            }
+        }
         return view('user.habit.index', compact('habits'));
     }
 

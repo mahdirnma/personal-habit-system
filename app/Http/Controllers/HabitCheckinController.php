@@ -13,7 +13,7 @@ class HabitCheckinController extends Controller
      */
     public function index()
     {
-        $habitCheckins = HabitCheckin::query()->paginate(2);
+        $habitCheckins = HabitCheckin::where('for_date',date('Y-m-d'))->paginate(2);
         return view('user.habit.checkins', compact('habitCheckins'));
     }
 

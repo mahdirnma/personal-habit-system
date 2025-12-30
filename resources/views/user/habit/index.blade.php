@@ -38,23 +38,23 @@
                     @foreach($habits as $habit)
                         <tr class="h-12 border border-gray-400 border-b-2 border-b-gray-400">
                             <td class="text-center">
-                                <form action="{{route('habit.status.form',$habit->habit)}}" method="get">
+                                <form action="{{route('habit.status.form',$habit)}}" method="get">
                                     @csrf
                                     <button type="submit" class="text-cyan-600 cursor-pointer">change status</button>
                                 </form>
                             </td>
-                            <td class="text-center">{{$habit->habit->category->name}}</td>
-                            <td class="text-center">{{$habit->habit->frequency}}</td>
-                            <td class="text-center">{{$habit->habit->remind_at}}</td>
-                            <td class="text-center">{{$habit->habit->due_at}}</td>
-                            <td class="text-center">{{$habit->habit->scheduled_time}}</td>
-                            <td class="text-center">{{$habit->habit->description}}</td>
-                            <td class="text-center">{{$habit->habit->title}}</td>
+                            <td class="text-center">{{$habit->category->name}}</td>
+                            <td class="text-center">{{$habit->frequency}}</td>
+                            <td class="text-center">{{$habit->remind_at}}</td>
+                            <td class="text-center">{{$habit->due_at}}</td>
+                            <td class="text-center">{{$habit->scheduled_time}}</td>
+                            <td class="text-center">{{$habit->description}}</td>
+                            <td class="text-center">{{$habit->title}}</td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
             </div>
-            <div class="mt-5">{{$habits->links()}}</div>
+{{--            <div class="mt-5">{{$habits->links()}}</div>--}}
         </div>
 @endsection
