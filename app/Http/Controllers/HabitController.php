@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Habit;
 use App\Http\Requests\StoreHabitRequest;
 use App\Http\Requests\UpdateHabitRequest;
+use App\Models\HabitCategory;
+use App\Models\HabitScheduleDay;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class HabitController extends Controller
 {
@@ -13,7 +17,9 @@ class HabitController extends Controller
      */
     public function index()
     {
-        //
+        $today = Carbon::now()->dayOfWeek;
+        $habits = HabitScheduleDay::where('weekday', $today)->paginate(2);
+        return view('user.habit.index', compact('habits'));
     }
 
     /**
@@ -21,7 +27,8 @@ class HabitController extends Controller
      */
     public function create()
     {
-        //
+        $categories=HabitCategory::all();
+        return view('user.habit.create', compact('categories'));
     }
 
     /**
@@ -29,7 +36,21 @@ class HabitController extends Controller
      */
     public function store(StoreHabitRequest $request)
     {
-        //
+        $user=Auth::id();
+        $habit = Habit::create([
+            ...$request->except('weekday,deadline'),
+            'due_at' => $request->deadline,
+            'user_id' => $user,
+            ]);
+        foreach ($request->weekday as $weekday) {
+            $habit->scheduleDays()->create([
+                'weekday' => $weekday,
+            ]);
+        }
+        if ($habit) {
+            return redirect()->route('habits.index');
+        }
+        return redirect()->route('habits.create');
     }
 
     /**

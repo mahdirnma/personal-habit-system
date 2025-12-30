@@ -11,7 +11,7 @@ class StoreHabitRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,14 @@ class StoreHabitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required',
+            'description' => 'required',
+            'scheduled_time' => 'required',
+            'deadline'=>'required',
+            'remind_at' => 'required',
+            'frequency' => 'required',
+            'category_id' => 'required',
+            'weekday' => 'required',
         ];
     }
 }

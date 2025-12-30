@@ -15,15 +15,15 @@ class HabitScheduleDaySeeder extends Seeder
     {
         HabitScheduleDay::create([
             'habit_id' => 1,
-            'weekday' => 'tuesday',
+            'weekday' => 2,
         ]);
         HabitScheduleDay::create([
             'habit_id' => 1,
-            'weekday' => 'wednesday',
+            'weekday' => 4,
         ]);
         HabitScheduleDay::create([
-            'habit_id' => 1,
-            'weekday' => 'tuesday',
+            'habit_id' => 2,
+            'weekday' => 2,
         ]);
     }
 }
