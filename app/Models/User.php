@@ -23,6 +23,20 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function categories()
+    {
+        return $this->hasMany(HabitCategory::class);
+    }
+
+    public function habits()
+    {
+        return $this->hasMany(Habit::class);
+    }
+
+    public function checkins()
+    {
+        return $this->hasMany(HabitCheckin::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
